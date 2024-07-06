@@ -1,5 +1,7 @@
+using System;
 using System.Collections;
 using System.Collections.Generic;
+using Unity.VisualScripting.Antlr3.Runtime.Misc;
 using UnityEngine;
 
 public class PlayerJumpState : PlayerBaseState, IRootState
@@ -18,6 +20,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
     {
         InitalizeSubState();
         HandleJump();
+        
     }
 
     public override void InitalizeSubState()
@@ -52,7 +55,7 @@ public class PlayerJumpState : PlayerBaseState, IRootState
         if (Ctx.JumpCount == 3)
         {
             Ctx.JumpCount = 0;
-            Ctx.Animator.SetInteger(Ctx.IsJumpingHash, Ctx.JumpCount);
+            Ctx.Animator.SetInteger(Ctx.JumpCountHash, Ctx.JumpCount);
         }
     }
     public override void CheckSwitchState() {
@@ -68,11 +71,12 @@ public class PlayerJumpState : PlayerBaseState, IRootState
         {
             Ctx.StopCoroutine(Ctx.CurrentJumpResetRoutine);
         }
+
         Ctx.Animator.SetBool(Ctx.IsJumpingHash, true);
-       
         Ctx.IsJumping = true;
-        Ctx.JumpCount += 1;
-        Ctx.Animator.SetInteger(Ctx.IsJumpingHash, Ctx.JumpCount);
+        Ctx.JumpCount +=1;
+        
+        Ctx.Animator.SetInteger(Ctx.JumpCountHash,Ctx.JumpCount);
         Ctx.CurrentMovementY = Ctx.InitialJumpVelocities[Ctx.JumpCount];
         Ctx.AppliedMovementY = Ctx.InitialJumpVelocities[Ctx.JumpCount];
     }

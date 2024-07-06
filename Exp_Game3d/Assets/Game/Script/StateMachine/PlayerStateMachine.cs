@@ -65,6 +65,7 @@ public class PlayerStateMachine : MonoBehaviour
     public int IsFallingHash { get { return _isFallingHash; } }
     public bool IsMovementPressed { get { return _isMovementPressed; } }
     public bool IsRunPressed { get { return _isRunPressed; } }
+    
 
 
     public bool RequireNewJumpPress { get { return _requireNewJumpPress; } set { _requireNewJumpPress = value; } }
