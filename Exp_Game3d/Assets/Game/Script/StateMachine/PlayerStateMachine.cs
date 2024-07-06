@@ -1,3 +1,4 @@
+using Platformer;
 using System.Collections.Generic;
 using UnityEngine;
 using UnityEngine.InputSystem;
@@ -20,6 +21,7 @@ public class PlayerStateMachine : MonoBehaviour
     Vector3 _currentMovement;
     Vector3 _currentRunMovement;
     Vector3 _appliedMovement;
+    Vector3 _cameraRelativeMovement;
     bool _isMovementPressed;
     bool _isRunPressed;
 
@@ -145,16 +147,43 @@ public class PlayerStateMachine : MonoBehaviour
     {
         handleRotation();
         _currentState.UpdateStates();
-        _characterController.Move(_appliedMovement * Time.deltaTime);
+
+        _cameraRelativeMovement = ConvertToCameraSpace(_appliedMovement);
+        _characterController.Move(_cameraRelativeMovement * Time.deltaTime);
+    }
+    Vector3 ConvertToCameraSpace(Vector3 vectoreToRotate)
+    {
+        // stor the Y value of the orginal vectore to rotate
+        float currentYvalue = vectoreToRotate.y;
+        //get the forward and right directional vectors of the camera
+        Vector3 cameraForward = Camera.main.transform.forward;
+        Vector3 cameraRight = Camera.main.transform.right;
+
+        //remove the Y values to ignore upward/downward camera angles
+        cameraForward.y = 0;
+        cameraRight.y = 0;
+
+        //re-normalize both vectors so they each have a magnitude of 1 
+        cameraForward = cameraForward.normalized;
+        cameraRight = cameraRight.normalized;
+
+        //rotat the X and Z VectorToRotate values to camera space
+        Vector3 cameraFormardZProduct = vectoreToRotate.z * cameraForward;
+        Vector3 cameraRightXProduct = vectoreToRotate.x * cameraRight;
+
+        //the sum of the both product is the Vectore3 in camera space
+        Vector3 vectorRotateToCameraSpace = cameraFormardZProduct + cameraRightXProduct;
+        vectorRotateToCameraSpace.y = currentYvalue;
+        return vectorRotateToCameraSpace;
     }
 
     void handleRotation()
     {
         Vector3 positionToLookAt;
         //the change in position our character should point to
-        positionToLookAt.x = _currentMovementInput.x;
+        positionToLookAt.x = _cameraRelativeMovement.x;
         positionToLookAt.y = _zero;
-        positionToLookAt.z = _currentMovementInput.y;
+        positionToLookAt.z = _cameraRelativeMovement.z;
         //the current rotation of our character
         Quaternion currentRotation = transform.rotation;
 
@@ -195,5 +224,6 @@ public class PlayerStateMachine : MonoBehaviour
     {
         _playerInput.CharacterControls.Disable();
     }
+
 }
 

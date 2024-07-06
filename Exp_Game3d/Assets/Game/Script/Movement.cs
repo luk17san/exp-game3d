@@ -34,7 +34,7 @@ public class Movement : MonoBehaviour
         trueSpeed = walkSpeed;
         controller = GetComponent<CharacterController>();
         anim = GetComponentInChildren<Animator>();
-        Cursor.lockState = CursorLockMode.Locked;
+        //Cursor.lockState = CursorLockMode.Locked;
         Cursor.visible = false;
     }
 

@@ -238,6 +238,10 @@ PrefabInstance:
       propertyPath: m_Name
       value: ThirdPersonCamera
       objectReference: {fileID: 0}
+    - target: {fileID: 1448592608551514352, guid: eec093e1b16f5f04e96649d8add23e57, type: 3}
+      propertyPath: m_TagString
+      value: Untagged
+      objectReference: {fileID: 0}
     - target: {fileID: 2180121669735049796, guid: eec093e1b16f5f04e96649d8add23e57, type: 3}
       propertyPath: m_LocalRotation.x
       value: 0.14958338
