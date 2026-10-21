@@ -1,0 +1,9 @@
+// Rozdzielić do istniejących plików; zachować .meta.
+internal class MeleeBlockState : PlayerBlockState
+{
+    public MeleeBlockState(PlayerStateMachine c, PlayerStateFactory f) : base(c, f) { }
+}
+internal class WeaponBlockState : PlayerBlockState
+{
+    public WeaponBlockState(PlayerStateMachine c, PlayerStateFactory f) : base(c, f) { }
+}

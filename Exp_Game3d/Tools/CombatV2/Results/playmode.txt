@@ -1,0 +1,45 @@
+PASS 44 checks
+Guard initializes full
+Guard spends base damage
+Guard regeneration delay
+Guard regeneration resumes
+No regeneration while blocking
+Exact stamina cost breaks guard
+Player fixture grounded: position=(0.00, 0.08, 0.00), state=PlayerGroundedState
+Player combat animation layer installed
+Two hand contact volumes installed
+State transition closes child before parent without stale update
+Fresh press starts first strike
+Action owns full body layer
+Animation speed matches configured strike duration
+Jump pressed during strike requires release rather than buffering
+Releasing jump clears the press requirement
+Early press does not buffer a second strike
+Late press buffers second strike
+Incoming hit reduces HP without interrupting own strike
+Late press buffers third strike
+Third strike ends and resets combo
+Held block enters guard
+Guard-breaking strike is still reduced
+Guard break starts stun with zero stamina
+Subsequent strike bypasses broken guard
+Held block does not automatically resume after break
+Ordinary hit starts reaction outside own strike
+Hit reaction applies collision-aware push
+Disabling a jumping object leaves no reset coroutine
+Reactivation clears interrupted action state
+One fist strikes multiple enemies exactly once each
+Nearest contacted enemy becomes guard target
+Previously attacked target wins over a nearer contacted enemy
+World wall prevents contact damage through obstacles
+Incoming hit interrupts enemy windup
+Incoming hit does not interrupt enemy swing
+Enemy guard-breaking hit retains damage reduction
+Enemy enters guard break phase
+Coordinator grants first attacker
+Coordinator grants second attacker
+Coordinator refuses third concurrent attacker
+Released slot allows waiting attacker
+Actual Game scene loads configured Player v3
+Actual Game scene has live enemies
+No runtime errors or exceptions: 

@@ -1,6 +1,8 @@
 {
   "dependencies": {
-    "com.kylewbanks.scenerefattribute": "file:C:/Users/Użytkownik/Downloads/scene-ref-attribute-main",
+    "com.kylewbanks.scenerefattribute": "file:com.kylewbanks.scenerefattribute",
+    "com.unity.ai.navigation": "1.1.6",
+    "com.unity.animation.rigging": "1.2.1",
     "com.unity.cinemachine": "2.9.7",
     "com.unity.collab-proxy": "2.2.0",
     "com.unity.ext.nunit": "1.0.6",

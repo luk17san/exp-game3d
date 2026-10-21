@@ -1,0 +1,50 @@
+using UnityEngine;
+
+public abstract class PlayerAttackState : PlayerBaseState
+{
+    private float _endTime;
+    private bool _completed;
+    protected abstract int AnimationHash { get; }
+    protected abstract float Duration { get; }
+    protected abstract bool UsesWeapon { get; }
+
+    protected PlayerAttackState(PlayerStateMachine context, PlayerStateFactory factory)
+        : base(context, factory) { IsRootState = true; }
+
+    public override void EnterState()
+    {
+        _completed = false;
+        Ctx.ActiveAttack = true;
+        InitalizeSubState();
+        Ctx.BeginComboAttack(UsesWeapon);
+        Ctx.Animator.SetBool(AnimationHash, true);
+        _endTime = Time.time + Duration;
+    }
+
+    public override void InitalizeSubState() => Ctx.StopHorizontalMovement();
+    public override void UpdateState() => CheckSwitchState();
+
+    public override void CheckSwitchState()
+    {
+        if (!Ctx.CharacterController.isGrounded)
+        {
+            SwitchState(Factory.Fall());
+            return;
+        }
+        if (Time.time >= _endTime)
+        {
+            _completed = true;
+            SwitchState(Factory.Grounded());
+        }
+    }
+
+    public override void ExitState()
+    {
+        Ctx.CloseDamageWindows();
+        Ctx.Animator.SetBool(AnimationHash, false);
+        Ctx.ActiveAttack = false;
+        Ctx.RequireNewAttackPress = Ctx.IsAttack1Pressed;
+        if (_completed) Ctx.FinishComboAttack();
+        else Ctx.ResetCombo();
+    }
+}

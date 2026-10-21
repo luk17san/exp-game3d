@@ -1,0 +1,16 @@
+// Rozdzielić do dwóch ISTNIEJĄCYCH plików, zachowując ich .meta.
+public class MeleeAttackState : PlayerAttackState
+{
+    public MeleeAttackState(PlayerStateMachine c, PlayerStateFactory f) : base(c, f) { }
+    protected override int AnimationHash => Ctx.IsMeleeAttackHash;
+    protected override float Duration => Ctx.MeleeAttackDuration;
+    protected override bool UsesWeapon => false;
+}
+
+public class WeaponAttackState : PlayerAttackState
+{
+    public WeaponAttackState(PlayerStateMachine c, PlayerStateFactory f) : base(c, f) { }
+    protected override int AnimationHash => Ctx.IsWeaponAttackHash;
+    protected override float Duration => Ctx.WeaponAttackDuration;
+    protected override bool UsesWeapon => true;
+}

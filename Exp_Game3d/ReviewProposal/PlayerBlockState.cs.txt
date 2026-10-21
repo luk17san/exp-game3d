@@ -1,0 +1,19 @@
+public abstract class PlayerBlockState : PlayerBaseState
+{
+    protected PlayerBlockState(PlayerStateMachine c, PlayerStateFactory f) : base(c, f)
+    { IsRootState = true; }
+
+    public override void EnterState()
+    {
+        InitalizeSubState();
+        Ctx.Animator.SetBool(Ctx.IsBlockingHash, true);
+    }
+    public override void InitalizeSubState() => Ctx.StopHorizontalMovement();
+    public override void UpdateState() => CheckSwitchState();
+    public override void ExitState() => Ctx.Animator.SetBool(Ctx.IsBlockingHash, false);
+    public override void CheckSwitchState()
+    {
+        if (!Ctx.CharacterController.isGrounded) SwitchState(Factory.Fall());
+        else if (!Ctx.IsBlockPressed) SwitchState(Factory.Grounded());
+    }
+}
